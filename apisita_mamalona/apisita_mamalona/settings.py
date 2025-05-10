@@ -26,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-18nkdr%3ji0@g216%u9lj+qi55v&5b(s%en3qg3(tk$1llvn&8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ") if not DEBUG else []
-
-
+# Permitir todos los hosts
+ALLOWED_HOSTS = ['*']  # Esto permite que todos los hosts sean aceptados.
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
