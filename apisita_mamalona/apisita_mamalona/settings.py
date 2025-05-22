@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +79,7 @@ WSGI_APPLICATION = 'apisita_mamalona.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-   'default': dj_database_url.parse(os.environ.get('DATABASE_URL', 'postgresql://backend_postgres_b0hd_user:osiGhLcmhME5jyxsei7YLsvumgCoKwJ6@dpg-d0d4ikhr0fns73bsee70-a.oregon-postgres.render.com/backend_postgres_b0hd'))
+   'default': dj_database_url.parse(os.environ.get('DATABASE_URL', 'postgresql://lamejordatabase_19s8_user:QSQ4PhmjMPgiwhKF8c8GvyT58EkpX2JV@dpg-d0jplsgdl3ps73colet0-a.oregon-postgres.render.com/lamejordatabase_19s8'))
 }
 
 
