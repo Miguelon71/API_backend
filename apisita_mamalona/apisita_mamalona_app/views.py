@@ -35,9 +35,8 @@ class LoginView(APIView):
         #user = data.get('username')
         user = authenticate(username=data.get('username'), password=data.get('password'))
         if user is not None:
-            #token, _ = Token.objects.get_or_create(user=user)
-            #return Response({"message": "Login exitoso", "token": token.key, "user": UserSerializer(user).data})
-            return Response({'message': 'Login exitoso'}, status=status.HTTP_200_OK)
+            token, _ = Token.objects.get_or_create(user=user)
+            return Response({"message": "Login exitoso", "token": token.key, "user": UserSerializer(user).data}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -71,6 +70,8 @@ class ProductListAPIView(ListAPIView):
 
 
 class ProductCreateAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def post(self, request):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
@@ -80,6 +81,8 @@ class ProductCreateAPIView(APIView):
 
 
 class ProductDetailAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request, pk):
         product = get_object_or_404(Product, pk=pk)
         return Response({'product': ProductSerializer(product).data})
@@ -101,6 +104,8 @@ class ProductDetailAPIView(APIView):
 
 
 class OrderListCreateAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request):
         orders = Order.objects.prefetch_related('products').all()
         return Response(OrderSerializer(orders, many=True).data)
@@ -119,6 +124,8 @@ class OrderListCreateAPIView(APIView):
 
 
 class OrderDetailAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request, pk):
         order = get_object_or_404(Order.objects.prefetch_related('products'), pk=pk)
         return Response({'order': OrderSerializer(order).data})
