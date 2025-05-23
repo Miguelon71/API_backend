@@ -23,7 +23,7 @@ class RegisterView(APIView):
             username=data['email'],
             email=data['email'],
             password=data['password'],
-            first_name=data.get('name', '')
+            first_name=data['name']
         )
         token = Token.objects.create(user=user)
         return Response({'message': 'Usuario registrado correctamente', 'token': token.key, 'user': UserSerializer(user).data}, status=201)
