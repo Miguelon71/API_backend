@@ -5,18 +5,14 @@ class User(AbstractUser):
     pass
 
 class Product(models.Model):
-    nombre = models.CharField(max_length=255)
-    descripcion = models.TextField()
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
-    imagen = models.URLField(blank=True)
-    plato = models.CharField(max_length=100)  # asumido como categoría/plato
+    name = models.CharField(max_length=255)  # Renamed from nombre
+    description = models.TextField()  # Renamed from descripcion
+    price = models.DecimalField(max_digits=10, decimal_places=2)  # Renamed from precio
+    image = models.URLField(blank=True)  # Renamed from imagen
+    category = models.CharField(max_length=100)  # Renamed from plato
 
     def __str__(self):
-<<<<<<< HEAD
-        return self.nombre
-=======
-        return self.name
->>>>>>> beba71477722030a7585f6131ff7ff1ee695d1a6
+        return self.name  # Updated to use self.name
 
 class Order(models.Model):
     name = models.CharField(max_length=255)
@@ -39,4 +35,4 @@ class OrderProduct(models.Model):
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"{self.quantity}x {self.product.name} in Order #{self.order.id}"
+        return f"{self.quantity}x {self.product.name} in Order #{self.order.id}"  # Updated to use self.product.name
