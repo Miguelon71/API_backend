@@ -16,17 +16,12 @@ class Product(models.Model):
 
 class Order(models.Model):
     name = models.CharField(max_length=255)
-    phone = models.CharField(max_length=20)
     address = models.TextField()
-    ccn = models.CharField(max_length=16, blank=True, null=True)
-    exp = models.CharField(max_length=5, blank=True, null=True)
-    cvv = models.CharField(max_length=4, blank=True, null=True)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-    state = models.CharField(max_length=50)
-
+    phone = models.CharField(max_length=20)
+   
     products = models.ManyToManyField(Product, through='OrderProduct')
 
-    def __str__(self):
+    def _str_(self):
         return f"Order #{self.id} - {self.name}"
 
 class OrderProduct(models.Model):
