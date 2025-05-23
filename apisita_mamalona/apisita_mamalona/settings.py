@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']  # Esto permite que todos los hosts sean aceptados.
 
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +46,10 @@ INSTALLED_APPS = [
     'apisita_mamalona_app',
 ]
 
+AUTH_USER_MODEL = 'apisita_mamalona_app.User'
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,6 +58,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+     
+    
 ] 
 
 ROOT_URLCONF = 'apisita_mamalona.urls'
@@ -126,3 +133,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CORS_ALLOW_ALL_ORIGINS = True  # o usa CORS_ALLOWED_ORIGINS si prefieres restringir
+
+# Opcional: para permitir cookies entre frontend/backend
+CORS_ALLOW_CREDENTIALS = True

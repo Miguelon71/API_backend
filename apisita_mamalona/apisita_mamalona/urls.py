@@ -16,16 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from apisita_mamalona_app import views
-from apisita_mamalona_app.views import ProductoListView
-from django.urls import path, include
-
+from apisita_mamalona_app.views import ProductListAPIView
+from django.urls import include
 
 urlpatterns = [
-    path('productos/', ProductoListView.as_view(), name='lista-productos'),
-    path('api/', include('apisita_mamalona_app.urls')),
     path('admin/', admin.site.urls),
-    re_path('login', views.login),
-    re_path('register', views.register),
-    re_path('profile', views.profile),
+    path('api/', include('apisita_mamalona_app.api_urls')),  # API endpoints
+    path('', include('apisita_mamalona_app.web_urls')),      # Web endpoints
+    path('productos/', ProductListAPIView.as_view(), name='lista-productos'),  # <--- si lo usas aquí
 ]
