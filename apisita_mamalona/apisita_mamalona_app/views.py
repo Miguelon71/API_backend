@@ -36,9 +36,9 @@ class LoginView(APIView):
         if user is not None:
             #token, _ = Token.objects.get_or_create(user=user)
             #return Response({"message": "Login exitoso", "token": token.key, "user": UserSerializer(user).data})
-            return Response({"message": "Login exitoso"}, status=status.HTTP_200_OK)
+            return Response({'message': 'Login exitoso'}, status=status.HTTP_200_OK)
         else:
-            return Response({"error": "Credenciales inválidas"}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LogoutView(APIView):
