@@ -31,12 +31,14 @@ class RegisterView(APIView):
 
 class LoginView(APIView):
     def post(self, request):
-        user = authenticate(username=request.data.get('username'), password=request.data.get('password'))
-        if user:
+        data = request.data
+        user = authenticate(username=data.get('username'), password=data.get('password'))
+        if user is not None:
             #token, _ = Token.objects.get_or_create(user=user)
             #return Response({"message": "Login exitoso", "token": token.key, "user": UserSerializer(user).data})
-            return Response({"data": "Login exitoso"}, status=status.HTTP_200_OK)
-        return Response({"error": "Credenciales inválidas"}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({"message": "Login exitoso"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Credenciales inválidas"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LogoutView(APIView):
