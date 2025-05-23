@@ -23,5 +23,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('apisita_mamalona_app.api_urls')),  # API endpoints
     path('', include('apisita_mamalona_app.web_urls')),      # Web endpoints
-    path('productos/', ProductListAPIView.as_view(), name='lista-productos'),  # <--- si lo usas aquí
 ]

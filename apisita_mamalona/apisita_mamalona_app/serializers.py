@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = '_all_'
+        fields = '__all__'
 
 class OrderProductSerializer(serializers.ModelSerializer):
     product = ProductSerializer()
@@ -35,4 +35,4 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = '_all_'
+        fields = '__all__'
