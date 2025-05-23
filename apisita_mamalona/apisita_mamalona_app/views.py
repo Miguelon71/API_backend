@@ -31,7 +31,7 @@ class RegisterView(APIView):
 
 class LoginView(APIView):
     def post(self, request):
-        user = authenticate(username=request.data.get("username"), password=request.data.get("password"))
+        user = authenticate(username=request.data.get('username'), password=request.data.get('password'))
         if user:
             #token, _ = Token.objects.get_or_create(user=user)
             #return Response({"message": "Login exitoso", "token": token.key, "user": UserSerializer(user).data})
