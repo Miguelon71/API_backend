@@ -24,15 +24,34 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrderProductSerializer(serializers.ModelSerializer):
-    product = ProductSerializer()
+    product_id = serializers.IntegerField(write_only=True)
 
     class Meta:
         model = OrderProduct
-        fields = ['product', 'quantity']
+        fields = ['product', 'product_id', 'quantity']
+        read_only_fields = ['product']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['product'] = ProductSerializer(instance.product).data
+        return representation
 
 class OrderSerializer(serializers.ModelSerializer):
-    products = OrderProductSerializer(source='orderproduct_set', many=True, read_only=True)
+    products = OrderProductSerializer(source='orderproduct_set', many=True)
 
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['id', 'name', 'address', 'phone', 'products']
+
+    def create(self, validated_data):
+        products_data = validated_data.pop('orderproduct_set')
+        order = Order.objects.create(**validated_data)
+        for product_data in products_data:
+            OrderProduct.objects.create(order=order, product_id=product_data['product_id'], quantity=product_data['quantity'])
+        return order
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        order_products = OrderProduct.objects.filter(order=instance)
+        representation['products'] = OrderProductSerializer(order_products, many=True).data
+        return representation
